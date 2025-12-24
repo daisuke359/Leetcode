@@ -4,16 +4,16 @@ class Solution {
         if(s.length()!=t.length()) {
             return false;
         }
-        HashMap<Character,Integer> mapS = new HashMap<>();
-        HashMap<Character,Integer> mapT = new HashMap<>();
+        HashMap<Character,Integer> map = new HashMap<>();
+        
 
         for(int i=0;i<s.length(); i++) {
-            mapS.put(s.charAt(i), mapS.getOrDefault(s.charAt(i), 0)+1);
-            mapT.put(t.charAt(i), mapT.getOrDefault(t.charAt(i), 0)+1);
+            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0)+1);
         }
 
-        for(int j=0; j<s.length(); j++) {
-            if(!mapS.get(s.charAt(j)).equals(mapT.get(s.charAt(j)))) {
+        for(int j=0; j<t.length(); j++) {
+            map.put(t.charAt(j), map.getOrDefault(t.charAt(j), 0)-1);
+            if(map.get(t.charAt(j))<0) {
                 return false;
             }
         }
