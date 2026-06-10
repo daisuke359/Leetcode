@@ -13,7 +13,9 @@ public:
         int front=0;
         int rear=0;
 
-        bool hasFresh=false;
+        int mins=0;
+
+        int freshCount=0;
         //first pushes
         for(int i=0;i<row_size;i++) {
             for(int j=0;j<col_size;j++) {
@@ -25,13 +27,13 @@ public:
                 }
 
                 if(grid[i][j]==1) {
-                    hasFresh=true;
+                    freshCount++;
                 }
             }
         }
 
         //check if there is no fresh orange
-        if(!hasFresh) {
+        if(freshCount==0) {
             return 0;
         }
 
@@ -40,26 +42,13 @@ public:
             Position current = queue[front];
             front++;
 
-            //check if every orange is rotten
-            bool allRotten=true;
-            for(int i=0;i<row_size;i++) {
-                for(int j=0;j<col_size;j++) {
-                    if(grid[i][j]==1) {
-                        allRotten=false;
-                        break;
-                    }
-                }
-            }
-
-            if(allRotten && front==rear) {
-                return current.mins;
-            }
+            mins = current.mins;
             
-
             //top
             if(current.row>0 && grid[current.row-1][current.col]==1) {
                 //mark rotten
                 grid[current.row-1][current.col]=2;
+                freshCount--;
 
                 //push
                 queue[rear].row=current.row-1;
@@ -72,6 +61,7 @@ public:
             if(current.row<row_size-1 && grid[current.row+1][current.col]==1) {
                 //mark rotten
                 grid[current.row+1][current.col]=2;
+                freshCount--;
 
                 //push
                 queue[rear].row=current.row+1;
@@ -84,6 +74,7 @@ public:
             if(current.col>0 && grid[current.row][current.col-1]==1) {
                 //mark rotten
                 grid[current.row][current.col-1]=2;
+                freshCount--;
 
                 //push
                 queue[rear].row=current.row;
@@ -96,6 +87,7 @@ public:
             if(current.col<col_size-1 && grid[current.row][current.col+1]==1) {
                 //mark rotten
                 grid[current.row][current.col+1]=2;
+                freshCount--;
 
                 //push
                 queue[rear].row=current.row;
@@ -106,6 +98,10 @@ public:
 
         }
 
-        return -1;
+        if(freshCount!=0) {
+            return -1;
+        } else {
+            return mins;
+        }
     }
 };
