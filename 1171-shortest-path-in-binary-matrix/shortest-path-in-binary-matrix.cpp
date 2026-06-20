@@ -18,6 +18,7 @@ public:
         }
 
         //first push
+        grid[0][0]=0;
         queue[0].row=0;
         queue[0].col=0;
         queue[0].steps=0;
