@@ -1,17 +1,18 @@
 class Solution {
 public:
     int dfs(vector<vector<int>>& grid, int row, int col) {
-        cout << "1 detected! row: " + to_string(row) + " col: " + to_string(col) << endl;
+        //cout << "1 detected! row: " + to_string(row) + " col: " + to_string(col) << endl;
         int row_size=grid.size();
         int col_size=grid[0].size();
         int top=0;
         int bottom=0;
         int left=0;
         int right = 0;
-
+    /*
         if((row-1<0 || grid[row-1][col]==0)&&(row+1>=row_size || grid[row+1][col]==0)&&(col-1<0 || grid[row][col-1]==0)&&(col+1>=col_size || grid[row][col+1]==0)) {
             return 1;
         }
+    */
 
         //top
         if(row-1>=0 && grid[row-1][col]==1) {
@@ -35,7 +36,9 @@ public:
             right = dfs(grid, row, col+1);
         }
 
+        //cout << "hello" << endl;
         return top + bottom + left + right + 1;
+
 
     }
     int maxAreaOfIsland(vector<vector<int>>& grid) {
