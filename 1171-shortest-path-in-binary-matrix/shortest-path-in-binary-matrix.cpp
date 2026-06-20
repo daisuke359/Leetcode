@@ -24,12 +24,10 @@ public:
         queue[0].steps=0;
         rear++;
 
-        int count=0;
         while(front<rear) {
             //pop
             Position current = queue[front];
             front++;
-            count++;
 
             int row=current.row;
             int col=current.col;
