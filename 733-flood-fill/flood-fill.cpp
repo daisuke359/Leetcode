@@ -1,33 +1,47 @@
 class Solution {
 public:
-    void dfs(vector<vector<int>>& image, int r, int c, int color, int original_color) {
+    void dfs(vector<vector<int>>& image, int row, int col, int color, int orig_color) {
         int row_size=image.size();
         int col_size=image[0].size();
-        if(r<0 || r>row_size-1 || c<0 || c>col_size-1) {
-            return;
+
+
+        cout << "checking" << endl;
+
+        //top
+        if(row-1>=0 && image[row-1][col]==orig_color) {
+            image[row-1][col]=color;
+            dfs(image, row-1, col, color, orig_color);
         }
 
-        if(image[r][c]!=original_color) {
-            return;
+        //top
+        if(row+1<=row_size-1 && image[row+1][col]==orig_color) {
+            image[row+1][col]=color;
+            dfs(image, row+1, col, color, orig_color);
         }
 
-        image[r][c]=color;
+        //top
+        if(col-1>=0 && image[row][col-1]==orig_color) {
+            image[row][col-1]=color;
+            dfs(image, row, col-1, color, orig_color);
+        }
 
-        dfs(image, r-1,c,color, original_color);
-        dfs(image, r+1,c,color, original_color);
-        dfs(image, r,c-1,color, original_color);
-        dfs(image, r,c+1,color, original_color);
+        //top
+        if(col+1<=col_size-1 && image[row][col+1]==orig_color) {
+            image[row][col+1]=color;
+            dfs(image, row, col+1, color, orig_color);
+        }
     }
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
         int row_size=image.size();
         int col_size=image[0].size();
-        int original_color = image[sr][sc];
+        int orig_color=image[sr][sc];
 
-        if (original_color == color) {
+        if(color==orig_color) {
             return image;
         }
 
-        dfs(image, sr, sc, color, original_color);
+        image[sr][sc]=color;
+        dfs(image, sr, sc, color, orig_color);
 
         return image;
     }
